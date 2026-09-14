@@ -1,0 +1,53 @@
+/* Light Mode Tokens (Default) */
+:root {
+  --color-bg-app: #f8fafc;
+  --color-bg-surface: #ffffff;
+  --color-bg-surface-subtle: #f1f5f9;
+
+  --color-border-default: #e2e8f0;
+  --color-border-hover: #cbd5e1;
+
+  --color-txt-main: #0f172a;
+  --color-txt-secondary: #475569;
+  --color-txt-muted: #94a3b8;
+
+  --color-brand: #3368A0;
+  --color-brand-hover: #66A3BF;
+  --color-brand-light: #C8DFDB;
+}
+
+/* Dark Mode Tokens */
+.dark {
+  --color-bg-app: #090d16;
+  --color-bg-surface: #111827;
+  --color-bg-surface-subtle: #1a2234;
+
+  --color-border-default: #1e293b;
+  --color-border-hover: #334155;
+
+  --color-txt-main: #f8fafc;
+  --color-txt-secondary: #94a3b8;
+  --color-txt-muted: #64748b;
+
+  --color-brand: #064789;
+  --color-brand-hover: #427aa1;
+  --color-brand-light: #4ECDC4;
+}
+
+/* Register Semantic Utilities in Tailwind CSS v4 */
+@theme {
+  --color-app: var(--color-bg-app);
+  --color-surface: var(--color-bg-surface);
+  --color-surface-subtle: var(--color-bg-surface-subtle);
+
+  --color-border: var(--color-border-default);
+  --color-border-hover: var(--color-border-hover);
+
+  --color-txt-main: var(--color-txt-main);
+  --color-txt-secondary: var(--color-txt-secondary);
+  --color-txt-muted: var(--color-txt-muted);
+
+  --color-brand: var(--color-brand);
+  --color-brand-hover: var(--color-brand-hover);
+  --color-brand-light: var(--color-brand-light);
+}
