@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'react-router'
+import { Link, NavLink, Outlet } from 'react-router'
 import { PATHS } from '@/routes/paths'
 import svgLogo from '@/assets/logo.svg'
 
@@ -59,7 +59,11 @@ export function RootLayout() {
 
       <footer className="border-t border-border bg-surface py-6 text-center text-sm text-txt-muted">
         <div className="max-w-7xl mx-auto px-4">
-          <p>© {new Date().getFullYear()} <a href="https://github.com/lyfesan/" className="font-semibold">lyfesan</a>. Licensed under <a href="https://www.gnu.org/licenses/gpl-3.0" className="font-semibold">GPL-3.0</a>.</p>
+          <p>
+            © {new Date().getFullYear()} <a href="https://github.com/lyfesan/" className="font-semibold hover:text-txt-main">lyfesan</a>. Licensed under{' '}
+            <a href="https://www.gnu.org/licenses/gpl-3.0" className="font-semibold hover:text-txt-main">GPL-3.0</a>.
+            {' '}<Link to={PATHS.THIRD_PARTY_LICENSES} className="font-semibold hover:text-txt-main">Third-party licenses</Link>
+          </p>
         </div>
       </footer>
     </div>

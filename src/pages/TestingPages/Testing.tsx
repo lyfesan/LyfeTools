@@ -1,5 +1,11 @@
 import { useState } from 'react';
-import { ComboBox } from '@/components/ComboBox';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 export default function App() {
   // 1. Define your list of strings
@@ -13,13 +19,23 @@ export default function App() {
     <div style={{ padding: '20px' }}>
       <h2>Select Output Format</h2>
       
-      {/* 3. Pass the data and the state setter to the Dropdown */}
-      <ComboBox
-        options={formatOptions.map(option => ({ label: option, value: option }))}
+      <Select
         value={selectedFormat}
-        onChange={setSelectedFormat}
-        placeholder="Select an output format"
-      />
+        onValueChange={(value) => {
+          if (value !== null) setSelectedFormat(value)
+        }}
+      >
+        <SelectTrigger aria-label="Select output format" className="w-full max-w-70">
+          <SelectValue placeholder="Select an output format" />
+        </SelectTrigger>
+        <SelectContent>
+          {formatOptions.map((option) => (
+            <SelectItem key={option} value={option}>
+              {option}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
 
       <p style={{ marginTop: '15px' }}>
         The parent component knows you selected: <strong>{selectedFormat}</strong>

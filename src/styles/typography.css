@@ -8,13 +8,7 @@
    ============================================ */
 
 :root {
-  --font-heading: 'Plus Jakarta Sans', system-ui, sans-serif;
-  --font-body: 'Inter', system-ui, sans-serif;
-  --font-mono: ui-monospace, 'Fira Code', 'Cascadia Code', Consolas, monospace;
-}
-
-@theme {
-  --font-heading: var(--font-heading);
-  --font-body: var(--font-body);
-  --font-mono: var(--font-mono);
+  --font-heading-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-body-family: 'Inter Variable', system-ui, sans-serif;
+  --font-mono-family: ui-monospace, 'Fira Code', 'Cascadia Code', Consolas, monospace;
 }

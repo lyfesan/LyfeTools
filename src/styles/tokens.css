@@ -40,7 +40,6 @@
   --color-surface: var(--color-bg-surface);
   --color-surface-subtle: var(--color-bg-surface-subtle);
 
-  --color-border: var(--color-border-default);
   --color-border-hover: var(--color-border-hover);
 
   --color-txt-main: var(--color-txt-main);

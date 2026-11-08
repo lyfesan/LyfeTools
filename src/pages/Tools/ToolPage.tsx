@@ -3,6 +3,7 @@ import { TOOLS } from '@/data/tools'
 import { ToolLayout } from '@/layouts/ToolLayout'
 import Testing from '@/pages/TestingPages/Testing'
 import { UnitConverter } from '@/pages/UnitConverter/UnitConverter'
+import { QrCodeGenerator } from '@/pages/QrCodeGenerator/QrCodeGenerator'
 
 export function ToolPage() {
   const { toolId } = useParams()
@@ -17,6 +18,9 @@ export function ToolPage() {
   switch (tool.id) {
     case 'unit-converter':
       content = <UnitConverter />
+      break
+    case 'qrcode-generator':
+      content = <QrCodeGenerator />
       break
     case 'testing':
       content = <Testing />
