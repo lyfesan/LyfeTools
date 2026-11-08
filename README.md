@@ -1,44 +1,64 @@
-
 # LyfeTools
+
 ![GitHub last commit](https://img.shields.io/github/last-commit/lyfesan/LyfeTools)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/lyfesan/LyfeTools/deploy.yml)
 ![GitHub License](https://img.shields.io/github/license/lyfesan/LyfeTools)
 
+LyfeTools is a collection of practical browser-based utilities. Tools run locally in your browser and do not send entered data to a server for processing.
 
-LyfeTools is a collection of small, practical utilities for everyday tasks. This project aims to provide useful tools that perform their work entirely on the client side without sending user data to a server for processing.
+## Available tools
 
-## Tools List
+- **Unit Converter** — convert time, length, mass, temperature, and electric current using arbitrary-precision arithmetic.
+- **QR Code Generator** — create QR codes from text or URLs, adjust error correction and mask pattern, preview QR metadata, and download as PNG, JPG, or SVG.
 
-See [TOOL_LIST.md](TOOL_LIST.md) for the current tool catalog, supported unit categories, and planned tools.
+Image conversion, document conversion, and the Pomodoro timer are planned. See [TOOL_LIST.md](TOOL_LIST.md) for the current tool catalog.
 
-## Tech Stack
+## Tech stack
 
-- React 19
-- TypeScript
+- React 19 and TypeScript
 - Vite
 - React Router
-- Tailwind CSS 4
+- Tailwind CSS 4 and shared shadcn-style UI components
 - `decimal.js` for unit conversion arithmetic
+- Project Nayuki's QR Code Generator Library
 - `oxlint` for linting
 
-## Project Structure
+## Getting started
+
+Requirements: Node.js and npm.
+
+```sh
+npm install
+npm run dev
+```
+
+Vite prints the local development URL after the server starts.
+
+## Scripts
+
+```sh
+npm run dev      # Start the development server
+npm run build    # Type-check and create a production build in dist/
+npm run preview  # Preview the production build locally
+npm run lint     # Lint the project with oxlint
+```
+
+## Project structure
 
 ```text
 src/
-├── components/       Reusable UI components
-├── config/           Application configuration
-├── data/             Tool and unit definitions
-├── hooks/            Shared React hooks
-├── layouts/          Shared page layouts
-├── pages/            Route-level page components
-├── routes/           Router configuration and paths
-├── services/         Application services
-├── styles/           Design tokens and typography
-├── types/            Shared TypeScript types
-└── utils/            Utility functions, including converters
+├── assets/       Static assets
+├── components/   Shared application and UI components
+├── data/         Tool and unit definitions
+├── hooks/        Shared React hooks
+├── layouts/      Shared page layouts
+├── pages/        Route-level pages and tools
+├── routes/       Router configuration and paths
+├── styles/       Design tokens and typography
+├── types/        Shared TypeScript types
+└── utils/        Conversion and QR-generation utilities
 ```
 
-## License
+## Licenses
 
-LyfeTools is licensed under the [GNU General Public License v3.0](LICENSE).
-
+LyfeTools is licensed under the [GNU General Public License v3.0](LICENSE). Third-party software and asset notices are available on the website's [Third-party licenses page](/licenses).

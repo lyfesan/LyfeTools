@@ -1,4 +1,4 @@
-# Available Tools
+# Tool Catalog
 
 ## Unit Converter
 
@@ -10,13 +10,16 @@ The unit converter currently supports:
 - Temperature
 - Electric current
 
-Conversions use arbitrary-precision decimal arithmetic through [`decimal.js`](https://github.com/MikeMcl/decimal.js), which helps preserve accuracy for very small and very large values.
+Conversions use arbitrary-precision decimal arithmetic through [`decimal.js`](https://github.com/MikeMcl/decimal.js). Results are rounded to 15 significant digits for display.
+
+## QR Code Generator
+
+Generates QR codes from text or URLs. Advanced Options include error correction level, optional error-correction boosting, and automatic or manually selected mask patterns. QR codes can be downloaded as PNG, JPG, or SVG.
 
 ## Coming Soon
 
-The following tools are expected to be available in the future:
+These tools are expected to be available in the future:
 
 - Image Converter
 - Pomodoro Timer
-- QR Code Generator
 - Document Converter
