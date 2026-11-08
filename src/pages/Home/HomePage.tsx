@@ -1,9 +1,10 @@
 import { Link } from 'react-router'
 import { PATHS } from '@/routes/paths'
+import { Button } from '@/components/ui/button'
 
 export function HomePage() {
   return (
-    <div className="flex-grow flex flex-col items-center justify-center">
+    <div className="grow flex flex-col items-center justify-center">
       <section className="text-center py-12 px-4 sm:px-6 lg:px-8">
         <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-txt-main">
           Your Tools, Your Control
@@ -12,12 +13,9 @@ export function HomePage() {
           LyfeTools provide convenient utility tools for your daily tasks and process it directly on your device without sending any data to the internet.
         </p>
         <div className="mt-8 flex justify-center gap-4">
-          <Link
-            to={PATHS.TOOLS}
-            className="rounded-full  bg-brand px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition"
-          >
+          <Button render={<Link to={PATHS.TOOLS} />} size="lg">
             Explore Tools
-          </Link>
+          </Button>
         </div>
       </section>
     </div>

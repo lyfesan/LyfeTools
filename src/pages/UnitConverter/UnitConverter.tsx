@@ -1,90 +1,163 @@
 import { useMemo, useState } from 'react'
 import Decimal from 'decimal.js'
-import { ComboBox } from '@/components/ComboBox'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Field, FieldDescription, FieldLabel } from '@/components/ui/field'
+import { Input } from '@/components/ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { UNIT_CATEGORIES, UNIT_CATEGORY_OPTIONS, type UnitCategory } from '@/data/units'
 import { convertUnit } from '@/utils/converters/units'
 
 export function UnitConverter() {
-    const [category, setCategory] = useState<UnitCategory>('length')
-    const units = UNIT_CATEGORIES[category]
-    const [fromUnitId, setFromUnitId] = useState(units[0].id)
-    const [toUnitId, setToUnitId] = useState(units[1]?.id ?? units[0].id)
-    const [inputValue, setInputValue] = useState('1')
+  const [category, setCategory] = useState<UnitCategory>('length')
+  const units = UNIT_CATEGORIES[category]
+  const [fromUnitId, setFromUnitId] = useState(units[0].id)
+  const [toUnitId, setToUnitId] = useState(units[1]?.id ?? units[0].id)
+  const [inputValue, setInputValue] = useState('1')
 
-    const fromUnit = units.find((unit) => unit.id === fromUnitId) ?? units[0]
-    const toUnit = units.find((unit) => unit.id === toUnitId) ?? units[0]
-    const formatUnitLabel = (unit: typeof units[number]) =>
-        unit.symbol ? `${unit.name} (${unit.symbol})` : unit.name
-    let result: Decimal | null = null
-    try {
-        if (inputValue.trim() !== '') {
-            const decimalValue = new Decimal(inputValue)
-            if (decimalValue.isFinite()) {
-                result = convertUnit(inputValue, fromUnit, toUnit)
-            }
-        }
-    } catch {
-        result = null
+  const fromUnit = units.find((unit) => unit.id === fromUnitId) ?? units[0]
+  const toUnit = units.find((unit) => unit.id === toUnitId) ?? units[0]
+  const unitOptions = useMemo(
+    () => units.map((unit) => ({
+      value: unit.id,
+      label: unit.symbol ? `${unit.name} (${unit.symbol})` : unit.name,
+    })),
+    [units],
+  )
+
+  let result: Decimal | null = null
+  try {
+    if (inputValue.trim() !== '') {
+      const decimalValue = new Decimal(inputValue)
+      if (decimalValue.isFinite()) {
+        result = convertUnit(inputValue, fromUnit, toUnit)
+      }
     }
+  } catch {
+    result = null
+  }
+  const formattedResult = result?.toSignificantDigits(15).toString()
 
-    const unitOptions = useMemo(
-        () => units.map((unit) => ({ value: unit.id, label: formatUnitLabel(unit) })),
-        [units],
-    )
+  function handleCategoryChange(value: string | null) {
+    if (!value || !UNIT_CATEGORY_OPTIONS.some((option) => option.value === value)) return
 
-    function handleCategoryChange(nextCategory: string) {
-        const nextUnits = UNIT_CATEGORIES[nextCategory as UnitCategory]
-        setCategory(nextCategory as UnitCategory)
-        setFromUnitId(nextUnits[0].id)
-        setToUnitId(nextUnits[1]?.id ?? nextUnits[0].id)
-    }
+    const nextCategory = value as UnitCategory
+    const nextUnits = UNIT_CATEGORIES[nextCategory]
+    setCategory(nextCategory)
+    setFromUnitId(nextUnits[0].id)
+    setToUnitId(nextUnits[1]?.id ?? nextUnits[0].id)
+  }
 
-    return (
-        <div className="grid gap-6 md:grid-cols-2">
-            <div className="space-y-5">
-                <ComboBox
-                    label="Category"
-                    className="w-full"
-                    options={UNIT_CATEGORY_OPTIONS}
-                    value={category}
-                    onChange={handleCategoryChange}
-                />
+  return (
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>Convert units</CardTitle>
+          <CardDescription>Choose a category, enter a value, and select the units to convert between.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <Field className="gap-2">
+              <FieldLabel htmlFor="unit-category">Category</FieldLabel>
+              <Select value={category} onValueChange={handleCategoryChange}>
+                <SelectTrigger id="unit-category" className="w-full">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {UNIT_CATEGORY_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </Field>
 
-                <label className="block text-sm font-medium text-txt-main">
-                    Value
-                    <input
-                        type="number"
-                        value={inputValue}
-                        onChange={(event) => setInputValue(event.target.value)}
-                        className="mt-2 w-full rounded-lg border border-border bg-surface px-4 py-2 text-txt-main outline-none focus:ring-2 focus:ring-brand"
-                    />
-                </label>
-            </div>
+            <Field className="gap-2">
+              <FieldLabel htmlFor="unit-value">Value</FieldLabel>
+              <Input
+                id="unit-value"
+                type="number"
+                step="any"
+                value={inputValue}
+                onChange={(event) => setInputValue(event.target.value)}
+              />
+            </Field>
 
-            <div className="space-y-5">
-                <ComboBox
-                    label="From"
-                    className="w-full"
-                    options={unitOptions}
-                    value={fromUnit.id}
-                    onChange={setFromUnitId}
-                />
+            <Field className="gap-2">
+              <FieldLabel htmlFor="unit-from">From</FieldLabel>
+              <Select
+                value={fromUnit.id}
+                onValueChange={(value) => {
+                  if (value !== null) setFromUnitId(value)
+                }}
+              >
+                <SelectTrigger id="unit-from" className="w-full">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {unitOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </Field>
 
-                <ComboBox
-                    label="To"
-                    className="w-full"
-                    options={unitOptions}
-                    value={toUnit.id}
-                    onChange={setToUnitId}
-                />
-            </div>
+            <Field className="gap-2">
+              <FieldLabel htmlFor="unit-to">To</FieldLabel>
+              <Select
+                value={toUnit.id}
+                onValueChange={(value) => {
+                  if (value !== null) setToUnitId(value)
+                }}
+              >
+                <SelectTrigger id="unit-to" className="w-full">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {unitOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </Field>
+          </div>
+        </CardContent>
+      </Card>
 
-            <div className="min-w-0 rounded-lg bg-surface-subtle p-5 md:col-span-2">
-                <p className="text-sm text-txt-secondary">Result</p>
-                <p className="mt-2 min-w-0 break-all text-2xl font-semibold text-txt-main">
-                    {result === null ? 'Enter a valid number' : `${result.toString()} ${toUnit.symbol ?? toUnit.name}`}
-                </p>
-            </div>
-        </div>
-    )
+      <Card className="bg-muted/30">
+        <CardContent className="py-5">
+          <p className="text-sm text-muted-foreground">Result</p>
+          <p className="mt-2 min-w-0 break-all text-2xl font-semibold text-foreground" aria-live="polite">
+            {formattedResult === undefined ? 'Enter a valid number' : `${formattedResult} ${toUnit.symbol ?? toUnit.name}`}
+          </p>
+          {result !== null && (
+            <>
+              <FieldDescription className="mt-2">
+                {inputValue} {fromUnit.symbol ?? fromUnit.name} = {formattedResult} {toUnit.symbol ?? toUnit.name}
+              </FieldDescription>
+              <FieldDescription className="mt-1">
+                Rounded to 15 significant digits for display.
+              </FieldDescription>
+            </>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  )
 }

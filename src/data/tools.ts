@@ -8,6 +8,16 @@ import { FaQrcode } from 'react-icons/fa6'
 
 export const TOOLS: ToolItem[] = [
   {
+    id: 'qrcode-generator',
+    name: 'QR Code Generator',
+    description: 'Generate QR codes for any text or URL.',
+    icon: FaQrcode,
+    iconStyle: 'text-brand dark:text-brand-light',
+    tags: ['Utilities'],
+    status: 'Beta',
+    path: '/tools/qrcode-generator',
+  },
+  {
     id: 'unit-converter',
     name: 'Unit Converter',
     description: 'Convert any units of measurement.',
@@ -16,6 +26,16 @@ export const TOOLS: ToolItem[] = [
     tags: ['Utilities'],
     status: 'Beta',
     path: '/tools/unit-converter',
+  },
+  {
+    id: 'document-converter',
+    name: 'Document Converter',
+    description: 'Convert documents between different formats.',
+    icon: CgFileDocument,
+    iconStyle: 'text-brand dark:text-brand-light',
+    tags: ['Utilities'],
+    status: 'Coming Soon',
+    path: '/tools/document-converter',
   },
   {
     id: 'image-converter',
@@ -35,26 +55,6 @@ export const TOOLS: ToolItem[] = [
     iconStyle: 'text-brand dark:text-brand-light',
     tags: ['Productivity'],
     status: 'Coming Soon',
-  },
-  {
-    id: 'qrcode-generator',
-    name: 'QR Code Generator',
-    description: 'Generate QR codes for any text or URL.',
-    icon: FaQrcode,
-    iconStyle: 'text-brand dark:text-brand-light',
-    tags: ['Utilities'],
-    status: 'Coming Soon',
-    path: '/tools/qrcode-generator',
-  },
-  {
-    id: 'document-converter',
-    name: 'Document Converter',
-    description: 'Convert documents between different formats.',
-    icon: CgFileDocument,
-    iconStyle: 'text-brand dark:text-brand-light',
-    tags: ['Utilities'],
-    status: 'Coming Soon',
-    path: '/tools/document-converter',
   }
   /*
   {
