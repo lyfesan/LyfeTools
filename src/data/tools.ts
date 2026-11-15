@@ -14,7 +14,7 @@ export const TOOLS: ToolItem[] = [
     icon: FaQrcode,
     iconStyle: 'text-brand dark:text-brand-light',
     tags: ['Utilities'],
-    status: 'Beta',
+    status: 'Available',
     path: '/tools/qrcode-generator',
   },
   {
@@ -24,7 +24,7 @@ export const TOOLS: ToolItem[] = [
     icon: LuRuler,
     iconStyle: 'text-brand dark:text-brand-light',
     tags: ['Utilities'],
-    status: 'Beta',
+    status: 'Available',
     path: '/tools/unit-converter',
   },
   {

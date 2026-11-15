@@ -3,6 +3,7 @@ import { qrcodegen } from '@/utils/qrcodegen/qrcodegen'
 import { FaChevronDown } from "react-icons/fa6";
 import { Download } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { ColorPickerField } from "@/components/ColorPickerField"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { Button } from '@/components/ui/button'
 import {
@@ -37,7 +38,11 @@ const errorCorrectionLevels: Record<string, qrcodegen.QrCode.Ecc> = {
     H: qrcodegen.QrCode.Ecc.HIGH,
 }
 
-function createQrSvg(qrCode: qrcodegen.QrCode) {
+function createQrSvg(
+    qrCode: qrcodegen.QrCode,
+    foregroundColor: string,
+    backgroundColor: string,
+) {
     const quietZone = 4
     const size = qrCode.size + quietZone * 2
     let path = ""
@@ -50,7 +55,11 @@ function createQrSvg(qrCode: qrcodegen.QrCode) {
         }
     }
 
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" shape-rendering="crispEdges"><rect width="100%" height="100%" fill="#fff"/><path d="${path}" fill="#000"/></svg>`
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" 
+        shape-rendering="crispEdges">
+            <rect width="100%" height="100%" fill="${backgroundColor}"/>
+            <path d="${path}" fill="${foregroundColor}"/>
+    </svg>`
 }
 
 async function downloadQrRaster(svg: string, format: "png" | "jpg") {
@@ -97,6 +106,8 @@ export function QrCodeGenerator() {
     const [boostErrorCorrection, setBoostErrorCorrection] = useState(true)
     const [maskPattern, setMaskPattern] = useState("-1")
     const [text, setText] = useState("")
+    const [foregroundColor, setForegroundColor] = useState("#000000")
+    const [backgroundColor, setBackgroundColor] = useState("#ffffff")
     const [downloadFormat, setDownloadFormat] = useState<"png" | "jpg" | "svg">("png")
     const [downloadError, setDownloadError] = useState<string | null>(null)
     const qrResult = useMemo(() => {
@@ -113,7 +124,7 @@ export function QrCodeGenerator() {
             )
 
             return {
-                svg: createQrSvg(qrCode),
+                svg: createQrSvg(qrCode, foregroundColor, backgroundColor),
                 version: qrCode.version,
                 mask: qrCode.mask,
                 errorCorrection: errorCorrectionOptions[qrCode.errorCorrectionLevel.ordinal].label,
@@ -131,7 +142,7 @@ export function QrCodeGenerator() {
 
             throw error
         }
-    }, [boostErrorCorrection, errorCorrection, maskPattern, text])
+    }, [backgroundColor, boostErrorCorrection, errorCorrection, foregroundColor, maskPattern, text])
 
     const handleDownload = async () => {
         if (!qrResult?.svg) return
@@ -240,6 +251,20 @@ export function QrCodeGenerator() {
                             </CollapsibleTrigger>
                             <CollapsibleContent className="mt-2 px-4 pt-2 text-sm">
                                 <FieldGroup className="gap-6">
+                                    <div className="grid grid-cols-1 gap-4 @md/field-group:grid-cols-2">
+                                        <ColorPickerField
+                                            id="qr-foreground-color"
+                                            label="QR Code Color"
+                                            value={foregroundColor}
+                                            onChange={setForegroundColor}
+                                        />
+                                        <ColorPickerField
+                                            id="qr-background-color"
+                                            label="Background Color"
+                                            value={backgroundColor}
+                                            onChange={setBackgroundColor}
+                                        />
+                                    </div>
                                     <FieldSet className="gap-3">
                                         <FieldLegend variant="label">Error Correction Level</FieldLegend>
                                         <FieldDescription>

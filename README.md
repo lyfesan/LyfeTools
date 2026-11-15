@@ -4,7 +4,7 @@
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/lyfesan/LyfeTools/deploy.yml)
 ![GitHub License](https://img.shields.io/github/license/lyfesan/LyfeTools)
 
-LyfeTools is a collection of practical browser-based utilities. Tools run locally in your browser and do not send entered data to a server for processing.
+LyfeTools is a collection of small, practical utilities for everyday tasks. This project aims to provide useful tools that perform their work entirely on the client side without sending user data to a server for processing.
 
 ## Available tools
 
