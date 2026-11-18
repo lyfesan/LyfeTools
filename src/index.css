@@ -163,3 +163,23 @@ h1, h2, h3, h4, h5, h6 {
     cursor: pointer;
   }
 }
+
+.color-picker-input {
+  appearance: none;
+  -webkit-appearance: none;
+  overflow: hidden;
+}
+
+.color-picker-input::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.color-picker-input::-webkit-color-swatch {
+  border: 0;
+  border-radius: 50%;
+}
+
+.color-picker-input::-moz-color-swatch {
+  border: 0;
+  border-radius: 50%;
+}
