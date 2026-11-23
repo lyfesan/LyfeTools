@@ -33,14 +33,14 @@ export function ColorPickerField({
       <InputGroup>
         <InputGroupAddon
           align="inline-start"
-          className="h-full py-1 pl-1"
+          className="h-full shrink-0 py-0 pl-1"
           onClick={(event) => event.stopPropagation()}
         >
           <Input
             type="color"
             value={value}
             aria-label={`Choose ${label.toLowerCase()}`}
-            className="size-8 cursor-pointer rounded-md border-0 bg-transparent p-1"
+            className="color-picker-input size-6 shrink-0 cursor-pointer rounded-full border-0 bg-transparent p-0"
             onChange={(event) => {
               setHex(event.target.value)
               onChange(event.target.value)
