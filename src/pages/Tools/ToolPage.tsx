@@ -2,8 +2,9 @@ import { useParams } from 'react-router'
 import { TOOLS } from '@/data/tools'
 import { ToolLayout } from '@/layouts/ToolLayout'
 import Testing from '@/pages/TestingPages/Testing'
-import { UnitConverter } from '@/pages/UnitConverter/UnitConverter'
-import { QrCodeGenerator } from '@/pages/QrCodeGenerator/QrCodeGenerator'
+import { UnitConverter } from '@/pages/UnitConverter/UnitConverterPage'
+import { QrCodeGenerator } from '@/pages/QrCodeGenerator/QrCodeGeneratorPage'
+// import { ImageConverter } from '@/pages/ImageConverter/ImageConverterPage'
 
 export function ToolPage() {
   const { toolId } = useParams()
@@ -22,6 +23,9 @@ export function ToolPage() {
     case 'qrcode-generator':
       content = <QrCodeGenerator />
       break
+    // case 'image-converter':
+    //   content = <ImageConverter />
+    //   break
     case 'testing':
       content = <Testing />
       break
