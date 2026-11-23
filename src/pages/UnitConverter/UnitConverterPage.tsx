@@ -10,12 +10,13 @@ import {
 import { Field, FieldDescription, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+} from '@/components/ui/combobox'
 import { UNIT_CATEGORIES, UNIT_CATEGORY_OPTIONS, type UnitCategory } from '@/data/units'
 import { convertUnit } from '@/utils/converters/units'
 
@@ -70,18 +71,33 @@ export function UnitConverter() {
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <Field className="gap-2">
               <FieldLabel htmlFor="unit-category">Category</FieldLabel>
-              <Select value={category} onValueChange={handleCategoryChange}>
-                <SelectTrigger id="unit-category" className="w-full">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {UNIT_CATEGORY_OPTIONS.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Combobox
+                value={category}
+                onValueChange={handleCategoryChange}
+                items={UNIT_CATEGORY_OPTIONS.map((option) => option.value)}
+                itemToStringLabel={(value) =>
+                  UNIT_CATEGORY_OPTIONS.find((option) => option.value === value)?.label ??
+                  value
+                }
+              >
+                <ComboboxInput id="unit-category" className="w-full" />
+                <ComboboxContent>
+                  <ComboboxEmpty>No categories found.</ComboboxEmpty>
+                  <ComboboxList>
+                    {(value: string) => {
+                      const option = UNIT_CATEGORY_OPTIONS.find(
+                        (candidate) => candidate.value === value,
+                      )
+
+                      return (
+                        <ComboboxItem key={value} value={value}>
+                          {option?.label ?? value}
+                        </ComboboxItem>
+                      )
+                    }}
+                  </ComboboxList>
+                </ComboboxContent>
+              </Combobox>
             </Field>
 
             <Field className="gap-2">
@@ -97,44 +113,66 @@ export function UnitConverter() {
 
             <Field className="gap-2">
               <FieldLabel htmlFor="unit-from">From</FieldLabel>
-              <Select
+              <Combobox
                 value={fromUnit.id}
                 onValueChange={(value) => {
                   if (value !== null) setFromUnitId(value)
                 }}
+                items={unitOptions.map((option) => option.value)}
+                itemToStringLabel={(value) =>
+                  unitOptions.find((option) => option.value === value)?.label ?? value
+                }
               >
-                <SelectTrigger id="unit-from" className="w-full">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {unitOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                <ComboboxInput id="unit-from" className="w-full" />
+                <ComboboxContent>
+                  <ComboboxEmpty>No units found.</ComboboxEmpty>
+                  <ComboboxList>
+                    {(value: string) => {
+                      const option = unitOptions.find(
+                        (candidate) => candidate.value === value,
+                      )
+
+                      return (
+                        <ComboboxItem key={value} value={value}>
+                          {option?.label ?? value}
+                        </ComboboxItem>
+                      )
+                    }}
+                  </ComboboxList>
+                </ComboboxContent>
+              </Combobox>
             </Field>
 
             <Field className="gap-2">
               <FieldLabel htmlFor="unit-to">To</FieldLabel>
-              <Select
+              <Combobox
                 value={toUnit.id}
                 onValueChange={(value) => {
                   if (value !== null) setToUnitId(value)
                 }}
+                items={unitOptions.map((option) => option.value)}
+                itemToStringLabel={(value) =>
+                  unitOptions.find((option) => option.value === value)?.label ?? value
+                }
               >
-                <SelectTrigger id="unit-to" className="w-full">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {unitOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                <ComboboxInput id="unit-to" className="w-full" />
+                <ComboboxContent>
+                  <ComboboxEmpty>No units found.</ComboboxEmpty>
+                  <ComboboxList>
+                    {(value: string) => {
+                      const option = unitOptions.find(
+                        (candidate) => candidate.value === value,
+                      )
+
+                      return (
+                        <ComboboxItem key={value} value={value}>
+                          {option?.label ?? value}
+                        </ComboboxItem>
+                      )
+                    }}
+                  </ComboboxList>
+                </ComboboxContent>
+              </Combobox>
             </Field>
           </div>
         </CardContent>
